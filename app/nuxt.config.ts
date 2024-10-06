@@ -14,4 +14,23 @@ export default defineNuxtConfig({
       });
     },
   },
+  vite: {
+    build: {
+      cssCodeSplit: false,
+    },
+  },
+  nitro: {
+    rollupConfig: {
+      output: {
+        entryFileNames: 'main.js',
+        chunkFileNames: 'main.js',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+            return 'main.css';
+          }
+          return assetInfo.name || '[name][extname]';
+        },
+      },
+    },
+  },
 });
